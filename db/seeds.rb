@@ -9,3 +9,8 @@ User.create(name: "Sarah")
 User.create(name: "John")
 User.create(name: "Brad")
 
+#2USERID,BREWERY,RATING,CONTENT
+
+Review.create(user_id: 1, brewery_id: 4, rating: 3, content: "Beer was OK")
+Review.create(user_id: 2, brewery_id: 4, rating: 4, content: "Beer was Good")
+Review.create(user_id: 3, brewery_id: 4, rating: 5, content: "Beer was Awesome")
