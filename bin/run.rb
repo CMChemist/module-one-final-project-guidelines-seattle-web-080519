@@ -1,15 +1,6 @@
 require_relative '../config/environment'
 require 'pry'
 
-
-def welcome
-    puts "Welcome to Breweries Go, where you can find and catch your favorite breweries."
-    # self.get_username
-end
-
-#FIRST PROMPT
-welcome
-
 # $current_user = ""
 # def get_username
 #     puts "Please a username and enter it into the console."
@@ -26,94 +17,68 @@ welcome
 #     User.find_by(name: get_username)
 # end
 
-
-  
-
+def welcome
+  puts ""
+  puts ""
+  puts "Welcome to Breweries Go, where you can find and catch your favorite breweries."
+  puts "------------------------------------------------------------------------------"
+end
 
 def get_login
   puts "Please select an option:"
   puts "1. Login with your Username."
   puts "2. Create a User Profile."
+  puts
   # use gets to capture the user's input. 
   option = gets.chomp
   if option == '1'
-    puts "Please select a username and enter it into the console."
-    get_username = gets.chomp
-    $current_user = User.find_by(name: get_username)
+    login
   elsif option == '2'
-    puts "Please select a username and enter it into the console."
-    get_username = gets.chomp
-    $current_user = User.create(name: get_username)
+    create_a_user_profile
   else
-    puts "Please enter a number that corresponds to one of the options above."   
+    puts ""
+    puts "*******************************************************"
+    puts "The number you entered was not valid. Please try again."  
+    puts "*******************************************************"  
     get_login
   end
 end
 
 
 
-#SECOND PROMPT
-get_login
-
-
-def get_menu_option
+def main_menu
+  puts ""
   puts "Please select an option:"
   puts "1. Search for a Breweries by city."
   puts "2. See your list of Breweries."
+  puts "3. Exit program."
+  puts
   option = gets.chomp
-  if option == '1'
-    puts "Please enter city"
-    city = gets.chomp
-    my_list = Brewery.where(location: city)
-    my_list.each do |brewery|
-        Review.create(user_id: $current_user.id, brewery_id: brewery.id)
-    end
-    user_list = my_list.map{|brew| brew.name}
-    puts user_list
-  elsif option == '2'
+  case option
+  when '1'
+    search_for_brewery_by_city
+  when '2'
     # binding.pry
-      my_list = Review.where(user_id: $current_user.id)
-      puts my_list
+    print_my_brewery_list
+    create_review_or_remove
+  when '3'
+    return
   else 
-    puts "Please enter a number that corresponds to one of the options above." 
+    puts "Please enter a valid choice."
     get_menu_option  
   end
 end
 
+
+
+
+
+#FIRST PROMPT
+welcome
+#SECOND PROMPT
+get_login
 #THIRD PROMPT
-get_menu_option
-
-
-def create_review
-  puts "Please select an option:"
-  puts "1. Give brewery a Rating"
-  puts "2. Remove brewery from your list"
-  option = gets.chomp
-  if option == '1'
-    puts "What Brewery would you like to rate"
-    brewery = gets.chomp
-    puts "What is your rating? (Please rate 1 to 5)"
-    rating = gets.chomp
-    puts "Please put comments here"
-    content = gets.chomp
-    current_brewery = Brewery.find_by(name: brewery)
-    my_review = Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
-    my_review.update(rating: rating, content: content )
-  elsif option == '2'
-    puts "Which brewery would you like to remove?"
-    brewery = gets.chomp
-    current_brewery = Brewery.find_by(name: brewery)
-    my_review = Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
-  end
-end
-
-#FOURTH PROMPT
-create_review
-
-
-
-
-
+main_menu
 
 
 
