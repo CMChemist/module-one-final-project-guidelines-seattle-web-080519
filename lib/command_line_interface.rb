@@ -178,11 +178,13 @@ def create_review_or_remove
 
 
   def review_brewery
+    puts
     puts "Which Brewery would you like to rate"
     brewery = gets.chomp
     current_brewery = Brewery.find_by(name: brewery)
 
     if !current_brewery
+        puts
         puts "You can only review breweries that are on your list."
         review_brewery
     end
@@ -190,13 +192,21 @@ def create_review_or_remove
     review_exists = Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
     
     if !review_exists
+        puts
         puts "You can only review breweries that are on your list."
         review_brewery
     end
 
     Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
+    puts
     puts "What is your rating? (Please rate 1 to 5)"
     rating = gets.chomp
+    if rating.to_i > 5 || rating.to_i < 1
+        puts
+        puts "Must be a valid rating."
+        what_next_after_modifying_your_list
+    end
+    puts
     puts "Please put comments here"
     content = gets.chomp
     current_brewery = Brewery.find_by(name: brewery)
