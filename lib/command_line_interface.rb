@@ -148,18 +148,26 @@ def print_my_brewery_list
     puts
     user_list = Review.where(user_id: $current_user.id)
     puts user_list.map {|review| Brewery.find(review.brewery_id).name}
+    puts
 end
 
 def create_review_or_remove
     puts "Please select an option:"
     puts "1. Give brewery a Rating"
-    puts "2. Remove brewery from your list"
+    puts "2. See all your reviews."
+    puts "3. Remove brewery from your list"
+    puts "4. Go back the Main Menu."
+    puts
     option = gets.chomp
     case option
     when '1'
         review_brewery  
     when '2'
+        print_your_reviews
+    when '3'
         remove_brewery_from_your_list
+    when '4'
+        main_menu
     else
         puts "Please enter a valid choice."
         create_review_or_remove
@@ -197,7 +205,21 @@ def create_review_or_remove
     #     Review.create(user_id: $current_user.id, brewery_id: brewery.id)
     #     what_next_after_modifying_your_list
     # end
-    
+  end
+
+  def get_your_reviews
+    Review.where(user_id: $current_user.id)
+  end
+
+  def print_your_reviews
+    reviews = get_your_reviews
+    reviews.each do |review|
+        puts
+        puts Brewery.find(review.brewery_id).name
+        puts "Rating: #{review.rating} stars."
+        puts "Comments: #{review.content}"
+    end
+    what_next_after_modifying_your_list
   end
 
   def what_next_after_modifying_your_list

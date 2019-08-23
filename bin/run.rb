@@ -1,21 +1,6 @@
 require_relative '../config/environment'
 require 'pry'
 
-# $current_user = ""
-# def get_username
-#     puts "Please a username and enter it into the console."
-#     # binding.pry
-#     $current_user = gets.chomp
-#     #username
-# end
-
-# def prompt_user_creation
-#     User.create(name: get_username)
-# end
-  
-# def get_user_profile
-#     User.find_by(name: get_username)
-# end
 
 def welcome
   puts ""
@@ -59,18 +44,20 @@ def main_menu
     search_for_brewery_by_city
   when '2'
     # binding.pry
+    if get_your_reviews.length == 0
+      puts "It looks like you don't have any breweries in your list."
+      puts "Please add breweries to your list by first searching for breweries under option 1."
+      main_menu
+    end
     print_my_brewery_list
     create_review_or_remove
   when '3'
-    return
+    exit
   else 
     puts "Please enter a valid choice."
     get_menu_option  
   end
 end
-
-
-
 
 
 #FIRST PROMPT
@@ -79,8 +66,3 @@ welcome
 get_login
 #THIRD PROMPT
 main_menu
-
-
-
-
-
