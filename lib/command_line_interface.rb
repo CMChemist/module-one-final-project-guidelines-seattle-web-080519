@@ -234,9 +234,10 @@ def create_review_or_remove
         remove_brewery_from_your_list
     end
     
-    review_exists = Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
-    current_brewery = Brewery.find_by(name: brewery)
-    my_review = Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
-    my_review.destroy
+    # review_exists = Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
+    # current_brewery = Brewery.find_by(name: brewery)
+    # my_review = Review.find_by(user_id: $current_user.id, brewery_id: current_brewery.id)
+    review_exists.destroy
+    what_next_after_modifying_your_list
   end
 
