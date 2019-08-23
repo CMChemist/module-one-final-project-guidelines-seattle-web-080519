@@ -58,7 +58,6 @@ def main_menu
   when '1'
     search_for_brewery_by_city
   when '2'
-    # binding.pry
     print_my_brewery_list
     create_review_or_remove
   when '3'

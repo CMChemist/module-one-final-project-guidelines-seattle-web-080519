@@ -77,10 +77,12 @@ def search_for_brewery_by_city
     puts ""
     puts "Please enter a city."
     city = gets.chomp
-    my_list = Brewery.where(location: city)
-    my_list.each do |brewery|
-      puts "- #{brewery.name}"
-    end
+    hash = get_breweries(city)
+    find_info(hash)
+    # my_list = Brewery.where(location: city)
+    # my_list.each do |brewery|
+    #   puts "- #{brewery.name}"
+    # end
 
     what_would_you_like_to_do_with_search_results
     
